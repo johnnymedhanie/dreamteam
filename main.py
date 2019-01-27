@@ -65,7 +65,7 @@ def filter_food_results(response):
     # keywords that we need from response
     meals = {
         "lunch":{
-            # "image_url": selected_lunch_restaurant["image_url"],
+            "image_url": selected_lunch_restaurant["image_url"],
             "address": ','.join([item for item in selected_lunch_restaurant["location"]["display_address"]]),
             "time_duration": "12:00pm-1:30pm",  # TODO: change this so it is not hardcoded when have more time
             "description": "Lunch at {}".format(selected_lunch_restaurant["name"])
@@ -227,6 +227,9 @@ def main():
 
         content = {"activity":itinerary_activity_objects,
                    "food":itinerary_food_objects}
+        import urllib
+        content = urllib.urlencode(content)
+        print('pls', content)
         return redirect(url_for('display_itinerary', content=content))
         # return redirect(url_for('display_itinerary', itinerary_objects="asdasf"))
     else:
@@ -234,6 +237,7 @@ def main():
 
 @app.route('/schedule/<content>', methods=['GET', 'POST'])
 def display_itinerary(content):
+    print('YEEEEEE')
     print(content)
     errors = []
     # if request.method == "POST":
@@ -248,9 +252,13 @@ def display_itinerary(content):
     #         return render_template('schedule.html', errors=errors)
     #     if r:
     #         return render_template("schedule.html", itinerary_objects=itinerary_objects)
-    import ast
-    content=ast.literal_eval(content)
+    # import ast
+    # content=ast.literal_eval(content)
     print('AHHHHHHH')
+    print(content)
+    import urlparse
+    content = urlparse.parse_qs(content)
+    print('quick moves')
     print(content)
     return render_template("initerary.html", content=content)
 
