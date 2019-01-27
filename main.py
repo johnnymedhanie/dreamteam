@@ -40,6 +40,7 @@ def filter_activity_results(response):
     response_json = response.text
     response = json.loads(response_json)
     print(response)
+
     return response['businesses'][0]["alias"]
 
 
@@ -104,9 +105,27 @@ def get_food_open_interval(departure_time, return_time, time_spent_per):
 
 
 def create_activity_querystring(survey_form):
-    querystring={}
-    querystring["price"]=survey_form["activity-budget"]
+    print("we got to activity")
+    querystring = {}
+    querystring["location"] = survey_form["location"]
+    querystring["price"]=survey_form["activityBudget"]
 
+    querystring["categories"] = ""
+    if survey_form["intoBeer"]:
+        querystring["categories"] = "bars,breweries,wineries,adultentertainment,social_clubs,"
+    if survey_form["intoRNR"]:
+        querystring["categories"]+= "skincare,medicalspa,"
+    if survey_form["intoCooking"]:
+        querystring["categories"]+= "restaurants,tastingclasses,gourmet,"
+    if survey_form["intoMusic"]:
+        querystring["categories"]+= "festivals,"
+    if survey_form["intoFamFriendly"]:
+        querystring["categories"]+= "artclasses,movietheaters,farms,zoos,"
+    if survey_form["intoCulture"]:
+        querystring["categories"]+= "museums,tours,artsandcrafts,"
+    if survey_form["intoOutdoors"]:
+        querystring["categories"]+= "active,fitness,parks,"
+    querystring["categories"] = querystring["categories"].strip(",")
     return querystring
 
 
@@ -121,7 +140,7 @@ def create_food_querystring(survey_form):
     querystring = {}
     querystring["location"] = survey_form["location"]
     querystring["cuisine"] = survey_form["cuisine"]
-    open_interval = get_food_open_interval(survey_form["departureTime"], survey_form["homeTime"], survey_form["howtotravel"])
+    open_interval = get_food_open_interval(survey_form["departureTime"], survey_form["homeTime"], "howtotravel")
     # querystring["term"] = "korean"
     querystring["price"]=survey_form["food-budget"]
     print(survey_form.keys())
@@ -145,14 +164,28 @@ def main():
         # choices = [{"term": "asian"}, {'limit':2},{"location": "vancouver", "price": "1, 2, 3"}]
         # print("choices")
         # print(choices)
-        querystring = create_food_querystring(request.form)
-        response = requests.request("GET", url, headers=headers, params=querystring)
+
+        # use for debugging form fields
+        # from flask import jsonify
+        # return jsonify(request.form)
+
+        food_querystring = create_food_querystring(request.form)
+        food_response = requests.request("GET", url, headers=headers, params=food_querystring)
+
+        activity_querystring = create_activity_querystring(request.form)
+        print(activity_querystring)
+        activity_response = requests.request("GET", url, headers=headers, params=activity_querystring)
         # print("response")
-        itinerary_activity_objects = filter_activity_results(response) #filter yelp api results
-        itinerary_food_objects = filter_food_results(response)
+        itinerary_activity_objects = filter_activity_results(activity_response) #filter yelp api results
+        itinerary_food_objects = filter_food_results(food_response)
         # return render_template("index.html")
 
         # print(itinerary_objects)
+        pprint("ACTIVITY")
+        pprint(itinerary_activity_objects)
+
+
+
         return redirect(url_for('display_itinerary', itinerary_activity_objects=itinerary_activity_objects, itinerary_food_objects=itinerary_food_objects))
         # return redirect(url_for('display_itinerary', itinerary_objects="asdasf"))
 

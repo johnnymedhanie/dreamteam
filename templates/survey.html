@@ -42,38 +42,46 @@
             </div>
             <div>
                 <p>What does your budget look like for other activities?</p>
-                <input name="activityBudget" class="budget" type="range" name="activity-budget" min="1" max="4">
+                <input id="activity-budget" name="activityBudget" class="budget" type="range" min="1" max="4"/>
             </div>
             <div id="interests">
                 <p>What are you interested in?</p>
-                <button id="intoBeer" name="intoBeer" type="button" value="False" onclick="change('intoBeer')">
+                <button id="intoBeer" name="intoBeer" type="button" onclick="change('intoBeer', 'intoBeerHidden')">
                     <img src="./beer.svg">
                     <div>Nightlife</div>
                 </button>
-                <button id="intoRNR" name="intoRNR" type="button" value="False" onclick="change('intoRNR')">
+                <input id="intoBeerHidden" name="intoBeer" type="hidden" value="False" />
+
+                <button id="intoRNR" name="intoRNR" type="button" onclick="change('intoRNR', 'intoRNRHidden')">
                     <img src="./herbs.svg">
                     <div>Relax and Pamper</div>
                 </button>
-                <button id="intoCooking" name="intoCooking" type="button" value="False" onclick="change('intoCooking')">
+                 <input id="intoRNRHidden" name="intoRNR" type="hidden" value="False" />
+                <button id="intoCooking" name="intoCooking" type="button" onclick="change('intoCooking', 'intoCookingHidden')">
                     <img src="./cooking.svg">
                     <div>Food Experiences</div>
                 </button>
-                <button id="intoMusic" name="intoMusic" type="button" value="False" onclick="change('intoMusic')">
+                 <input id="intoCookingHidden" name="intoCooking" type="hidden" value="False" />
+                <button id="intoMusic" name="intoMusic" type="button" onclick="change('intoMusic', 'intoMusicHidden')">
                     <img src="./music.svg">
                     <div>Music</div>
                 </button>
-                <button id="intoFamFriendly" name="intoFamFriendly" type="button" value="False" onclick="change('intoFamFriendly')">
+                 <input id="intoMusicHidden" name="intoMusic" type="hidden" value="False" />
+                <button id="intoFamFriendly" name="intoFamFriendly" type="button" onclick="change('intoFamFriendly', 'intoFamFriendlyHidden')">
                     <img src="./family.svg">
                     <div>Family-Friendly</div>
                 </button>
-                <button id="intoCulture" name="intoCulture" type="button" value="False" onclick="change('intoCulture')">
+                 <input id="intoFamFriendlyHidden" name="intoFamFriendly" type="hidden" value="False" />
+                <button id="intoCulture" name="intoCulture" type="button" onclick="change('intoCulture', 'intoCultureHidden')">
                     <img src="./culture.svg">
                     <div>Arts and Culture</div>
                 </button>
-                <button id="intoOutdoors" name="intoOutdoors" type="button" value="False" onclick="change('intoOutdoors')">
+                 <input id="intoCultureHidden" name="intoCulture" type="hidden" value="False" />
+                <button id="intoOutdoors" name="intoOutdoors" type="button" onclick="change('intoOutdoors', 'intoOutdoorsHidden')">
                     <img src="./outdoors.svg">
                     <div>Outdoors</div>
                 </button>
+                 <input id="intoOutdoorsHidden" name="intoOutdoors" type="hidden" value="False" />
                 <!-- <input type="checkbox" name="activity" value="Nightlife"> Nightlife w icon
                 <input type="checkbox" name="activity" value="Relax and Pamper"> Relax and Pamper w icon
                 <input type="checkbox" name="activity" value="Food Experiences"> Food Experiences w icon
@@ -92,22 +100,29 @@
             </div>
             <div id="getaround" name="getaround">
                 <p>How would you like to get around?</p>
-                <button id="by_car" type="button" value="False" onclick="change('by_car')">
+                <button id="by_car" type="button" onclick="change('by_car', 'by_carHidden')">
                     <img src="./car.svg">
                     <div>Car</div>
                 </button>
-                <button id="by_bus" type="button" value="False" onclick="change('by_bus')">
+                <input id="by_carHidden" name="by_car" type="hidden" value="False" />
+
+                <button id="by_bus" type="button" onclick="change('by_bus', 'by_busHidden')">
                     <img src="./bus.svg">
                     <div>Public Transportation</div>
                 </button>
-                <button id="by_bike" type="button" value="False" onclick="change('by_bike')">
+                <input id="by_busHidden" name="by_bus" type="hidden" value="False" />
+
+                <button id="by_bike" type="button" onclick="change('by_bike', 'by_bikeHidden')">
                     <img src="./bike.svg">
                     <div>Bike</div>
                 </button>
-                <button id="by_foot" type="button" value="False" onclick="change('by_foot')">
+                <input id="by_bikeHidden" name="by_bike" type="hidden" value="False" />
+
+                <button id="by_foot" type="button" onclick="change('by_foot', 'by_footHidden')">
                     <img src="./foot.svg">
                     <div>On Foot</div>
                 </button>
+                <input id="by_footHidden" name="by_foot" type="hidden" value="False" />
             </div>
 
             <p>Ready for your next adventure?</p>
@@ -122,9 +137,10 @@
 </html>
 <script type="application/javascript">
 
-function change(element_id) {
+function change(element_button, element_id) {
   var change = document.getElementById(element_id);
-  change.classList.toggle("selected");
+  var button = document.getElementById(element_button);
+  button.classList.toggle("selected");
   if (change.value == "False") {
     document.preferences.elements[element_id].value = "True";
     //document.test.submit();
