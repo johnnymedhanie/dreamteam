@@ -2,9 +2,9 @@ from flask import Flask, render_template, url_for, redirect
 from yelp.client import Client
 import json
 import requests
-from collections import defaultdict
 from pprint import pprint
 from flask import request
+from datetime import datetime
 
 
 app = Flask(__name__, static_url_path='', static_folder='templates', template_folder='templates')
@@ -16,18 +16,6 @@ headers = {
     'Authorization': "Bearer TcTzRvNstk-8bdJkDiY3mwUhcCraFKD1SERukD6IxsOIiyN_pbbdmzb1JQdcCig0YYqECwWYEMB5YAD-8Z_XXso0MHOz47jJGqrH3S_t0L1V_frSvWq0jzsP1_5MXHYx",
     'cache-control': "no-cache",
 }
-
-keyword_map = {
-    "Q1":{"location":"vancouver"}, # where are you planning to go
-    "Q2":{"interest" : ["hiking", "snowboarding", "chocolate"]},
-    "time" : {"10:AM", "7:PM"} # what do you like to do
-}
-
-
-#
-def foodParser(*foods):
-    return {}
-
 
 
 def filter_activity_results(response):
@@ -100,6 +88,10 @@ def get_food_open_interval(departure_time, return_time, time_spent_per):
     :param time_spent_per:
     :return: a list of integers representing unix time in same timezone as query that should be queried
     """
+    time_format = "%H:%M"
+    depart_time = datetime.strptime(departure_time, time_format)
+    ret_time = datetime.strptime(return_time, time_format)
+
 
     return []
 
@@ -166,8 +158,8 @@ def main():
         # print(choices)
 
         # use for debugging form fields
-        # from flask import jsonify
-        # return jsonify(request.form)
+        from flask import jsonify
+        return jsonify(request.form)
 
         food_querystring = create_food_querystring(request.form)
         food_response = requests.request("GET", url, headers=headers, params=food_querystring)
@@ -207,7 +199,7 @@ def display_itinerary(itinerary_activity_objects, itinerary_food_objects):
     #         return render_template('schedule.html', errors=errors)
     #     if r:
     #         return render_template("schedule.html", itinerary_objects=itinerary_objects)
-    return render_template("schedule.html", itinerary_activity_objects=itinerary_activity_objects, itinerary_food_objects=itinerary_food_objects)
+    return render_template("initerary.html", itinerary_activity_objects=itinerary_activity_objects, itinerary_food_objects=itinerary_food_objects)
 
 
 
