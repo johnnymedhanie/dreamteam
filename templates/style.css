@@ -1,0 +1,33 @@
+@font-face {
+  font-family: 'Ivar Text';
+  font-style: normal;
+  font-weight: 400;
+  src: url(./IvarTextBold.otf);
+}
+
+@font-face{
+    font-family: 'circular';
+    font-style: normal;
+    font-weight: 500;
+    src: url(./circular-book.ttf);
+}
+
+
+body {
+    padding: 40px 5vw;
+    background-color: #F1F4F2;
+    font-family: 'circular';
+}
+
+h1 {
+    font-family: 'Ivar Text';
+    font-size: 48px;
+}
+
+h5 {
+    font-size: 16px;
+}
+
+p {
+    font-size: 24px;
+}
