@@ -13,51 +13,51 @@
         <form id="preferences" name="preferences" role="form" method='POST' action='/'>
             <div>
                 <p>Where are you going?</p>
-                <input id="location" class="text-line" type="text" name="location" value="Vancouver">
+                <input id="location" class="text-line" type="text" name="location" value="">
             </div>
             <div>
                 <p>When do you want to go?</p>
                 <input class="text-line" type="date" name="time" value="">
             </div>
-            <div>
+            <div id="new">
                 <p>Are you new to the area?</p>
-                <input type="radio" name="yn" value="yes"> yes <br>
-                <input type="radio" name="yn" value="no"> no <br>
+                <button>Yes</button>
+                <button>No</button>
             </div>
             <div>
                 <p>What does your budget look like for food?</p>
-                <input type="range" list="budget" min="0" max="3" value="0">
-                <datalist id="budget">
-                  <option label="$"> Under $10 </option>
-                  <option label="$$"> $11-$30 </option>
-                  <option label="$$$"> $31-$60 </option>
-                  <option label="$$$$"> above $61 </option>
+                <input class="budget" type="range" list="moolahTicks" min="0" max="3" value="0">
+                <datalist id="moolahTicks" style="display:block">
+                  <option value="0" label="$">
+                  <option value="1" label="$$">
+                  <option value="2" label="$$$">
+                  <option value="3" label="$$$$">
                 </datalist>
 
-                <ul class="range-labels">
+                <!-- <ul class="range-labels">
                   <li class="active selected">$</li>
                   <li>$$</li>
                   <li>$$$</li>
                   <li>$$$$</li>
-                </ul>
+                </ul> -->
             </div>
             <div>
                 <p>What does your budget look like for other activities?</p>
-                <input type="range" list="budget" min="0" max="3" value="0">
-                <datalist id="budget">
+                <input class="budget" type="range" list="budget" min="0" max="3" value="0">
+                <!-- <datalist class="budget">
                   <option label="$"> Under $10 </option>
                   <option label="$$"> $11-$30 </option>
                   <option label="$$$"> $31-$60 </option>
                   <option label="$$$$"> above $61 </option>
-                </datalist>
+                </datalist> -->
 
-                <ul class="range-labels">
+                <!-- <ul class="range-labels">
                   <li class="active selected">$</li>
                   <li>$$</li>
                   <li>$$$</li>
                   <li>$$$$</li>
-                </ul>
-                
+                </ul> -->
+
             </div>
             <div>
                 <p>What are you interested in?</p>
