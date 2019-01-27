@@ -8,13 +8,13 @@
 @font-face{
     font-family: 'circular';
     font-style: normal;
-    font-weight: 500;
+    font-weight: normal;
     src: url(./circular-book.ttf);
 }
 
 
 body {
-    padding: 40px 5vw;
+    padding: 40px 10vw;
     background-color: #F1F4F2;
     font-family: 'circular';
 }
@@ -22,12 +22,27 @@ body {
 h1 {
     font-family: 'Ivar Text';
     font-size: 48px;
+    margin-bottom: 5px;
 }
 
 h5 {
     font-size: 16px;
+    margin-top: 1px;
 }
 
 p {
     font-size: 24px;
+}
+
+.text-line {
+    background-color: transparent;
+    color: black;
+    outline: none;
+    outline-style: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid #686868 1px;
+    padding: 3px 10px;
+    font-size: 20px;
 }
