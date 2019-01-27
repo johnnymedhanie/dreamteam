@@ -29,8 +29,8 @@ def filter_activity_results(response):
     response = json.loads(response_json)
     print(response)
 
-    return response
-    # return response['businesses'][0]["alias"]
+    # return response
+    return response['businesses'][0]["alias"]
 
 
 def filter_food_results(response):
@@ -133,7 +133,7 @@ def create_food_querystring(survey_form):
 
     querystring = {}
     querystring["location"] = survey_form["location"]
-    querystring["cuisine"] = survey_form["cuisine"]
+    querystring["term"] = survey_form["cuisine"]
     open_interval = get_food_open_interval(survey_form["departureTime"], survey_form["homeTime"], "howtotravel")
     # querystring["term"] = "korean"
     querystring["price"]=survey_form["food-budget"]
@@ -167,8 +167,8 @@ def main():
         food_querystring = create_food_querystring(request.form)
         food_response = requests.request("GET", url, headers=headers, params=food_querystring)
         #
-        # from flask import jsonify
-        # return jsonify(food_response.json())
+        from flask import jsonify
+        return jsonify(food_response.json())
 
         activity_querystring = create_activity_querystring(request.form)
         print(activity_querystring)
