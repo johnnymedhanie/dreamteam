@@ -30,7 +30,19 @@ h2 {
   font-size: 28px;
 }
 
-
+h3 {
+  font-family: Circular;
+  color: white;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  font-size: 68px;
+  text-align: left;
+  letter-spacing: 0.02em;
+  display: inline-block;
+  width: 50vw;
+  margin: 0px;
+}
 h5 {
     font-size: 16px;
     margin-top: 1px;
@@ -67,6 +79,8 @@ button {
   height: 400px;
   background-image: url("https://images.unsplash.com/photo-1521017432531-fbd92d768814?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80");
   background-size: cover;
+  padding: 70px 35px;
+  color: white;
 }
 
 #new button {
