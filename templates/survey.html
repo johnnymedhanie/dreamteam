@@ -86,9 +86,9 @@
             <div id="howtotravel" name="howtotravel">
                 <p>How do you like to travel?</p>
                 <!-- <input class="text-line" type="time" name="usr_time" valubuttone=""> -->
-                <button>I like to pack as many things as possible into my trip.</button><br>
-                <button>I like to take it easy. I like to take my time going from place to place.</button><br>
-                <button>I like something in between.</button><br>
+                <button type="button" onclick="howToTravelYeetToggle(this)">I like to pack as many things as possible into my trip.</button><br>
+                <button type="button" onclick="howToTravelYeetToggle(this)">I like to take it easy. I like to take my time going from place to place.</button><br>
+                <button type="button" onclick="howToTravelYeetToggle(this)">I like something in between.</button><br>
             </div>
             <div id="getaround" name="getaround">
                 <p>How would you like to get around?</p>
@@ -136,6 +136,17 @@ function change(element_id) {
 
 function newToTheAreaToggle(e) {
     Array.from(document.getElementById('new').children).slice(1).forEach(
+        button => {
+            button.classList.remove('selected');
+            button.value = "";
+        }
+    );
+    e.classList.add('selected');
+    e.value = "True";
+}
+
+function howToTravelYeetToggle(e) {
+    Array.from(document.getElementById('howtotravel').children).slice(1).forEach(
         button => {
             button.classList.remove('selected');
             button.value = "";
