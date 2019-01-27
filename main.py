@@ -158,8 +158,8 @@ def main():
         # print(choices)
 
         # use for debugging form fields
-        from flask import jsonify
-        return jsonify(request.form)
+        # from flask import jsonify
+        # return jsonify(request.form)
 
         food_querystring = create_food_querystring(request.form)
         food_response = requests.request("GET", url, headers=headers, params=food_querystring)
@@ -208,4 +208,3 @@ def display_itinerary(itinerary_activity_objects, itinerary_food_objects):
     # print(type(response))
 
     # return str(["{}\n".format(line) for line in json.dumps(response.json()).split(",")])
-
