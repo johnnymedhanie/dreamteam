@@ -5,6 +5,7 @@ import requests
 from pprint import pprint
 from flask import request
 from datetime import datetime
+from random import randint
 
 
 app = Flask(__name__, static_url_path='', static_folder='templates', template_folder='templates')
@@ -27,10 +28,22 @@ def filter_activity_results(response):
     # print(response.text)
     response_json = response.text
     response = json.loads(response_json)
-    print(response)
+    rng_activity = randint(0, len(response)-1)
+    selected_activity = response["businesses"][rng_activity]  # TODO: improve selection
+
+    activities = {
+        selected_activity["name"]:{
+                # "image_url": selected_activity["image_url"],
+                "address": ','.join([item for item in selected_activity["location"]["display_address"]]),
+                "time_duration": "2:00pm-4:30pm",  # TODO: change this so it is not hardcoded when have more time
+                "description": "{}".format(selected_activity["name"])
+        }
+    }
+
+    return activities
 
     # return response
-    return response['businesses'][0]["alias"]
+    # return response['businesses'][0]["alias"]
 
 
 def filter_food_results(response):
@@ -42,8 +55,32 @@ def filter_food_results(response):
     # print(response.text)
     response_json = response.text
     response = json.loads(response_json)
-    print(response)
-    return response
+    #select randomly from top 10
+    rng_lunch = randint(0,len(response))
+    selected_lunch_restaurant = response["businesses"][rng_lunch] #TODO: improve selection
+    rng_dinner = randint(0,len(response))
+    # while rng_dinner==rng_lunch:
+    #     rng_dinner = randint(0, len(response))
+    selected_dinner_restaurant = response["businesses"][rng_dinner] #TODO: improve selection
+    # keywords that we need from response
+    meals = {
+        "lunch":{
+            # "image_url": selected_lunch_restaurant["image_url"],
+            "address": ','.join([item for item in selected_lunch_restaurant["location"]["display_address"]]),
+            "time_duration": "12:00pm-1:30pm",  # TODO: change this so it is not hardcoded when have more time
+            "description": "Lunch at {}".format(selected_lunch_restaurant["name"])
+        },
+        "dinner":{
+            # "image_url": selected_dinner_restaurant["image_url"],
+            "address": ','.join([item for item in selected_dinner_restaurant["location"]["display_address"]]),
+            "time_duration": "5:00pm-6:30pm",  # TODO: change this so it is not hardcoded when have more time
+            "description": "Dinner at {}".format(selected_dinner_restaurant["name"])
+        }
+    }
+
+    print("FOOD")
+    print(meals)
+    return meals
     # return response['businesses'][0]["alias"]
 
 
@@ -105,21 +142,23 @@ def create_activity_querystring(survey_form):
     querystring["price"]=survey_form["activityBudget"]
 
     querystring["categories"] = ""
-    if survey_form["intoBeer"]:
+    if survey_form["intoBeer"]=="True":
+        print("CORRECT WE WENT IN")
         querystring["categories"] = "bars,breweries,wineries,adultentertainment,social_clubs,"
-    if survey_form["intoRNR"]:
+    if survey_form["intoRNR"]=="True":
         querystring["categories"]+= "skincare,medicalspa,"
-    if survey_form["intoCooking"]:
+    if survey_form["intoCooking"]=="True":
         querystring["categories"]+= "restaurants,tastingclasses,gourmet,"
-    if survey_form["intoMusic"]:
+    if survey_form["intoMusic"]=="True":
         querystring["categories"]+= "festivals,"
-    if survey_form["intoFamFriendly"]:
+    if survey_form["intoFamFriendly"]=="True":
         querystring["categories"]+= "artclasses,movietheaters,farms,zoos,"
-    if survey_form["intoCulture"]:
+    if survey_form["intoCulture"]=="True":
         querystring["categories"]+= "museums,tours,artsandcrafts,"
-    if survey_form["intoOutdoors"]:
+    if survey_form["intoOutdoors"]=="True":
         querystring["categories"]+= "active,fitness,parks,"
     querystring["categories"] = querystring["categories"].strip(",")
+    querystring["sort_by"]="best_match"
     return querystring
 
 
@@ -146,6 +185,8 @@ def create_food_querystring(survey_form):
     # for ans in survey_form:
     #     querystring.update(ans)
     # print(querystring)
+    querystring["sort_by"]="rating"
+
     return querystring
 
 
@@ -154,11 +195,6 @@ def main():
     if request.method == 'POST':
 
         print("this is req is form data", request.form['location'])
-        # choices = request.json # yelp keywords that we can use in query string
-        # choices = [{"term": "asian"}, {'limit':2},{"location": "vancouver", "price": "1, 2, 3"}]
-        # print("choices")
-        # print(choices)
-
         # use for debugging form fields
 
         # from flask import jsonify
@@ -167,31 +203,38 @@ def main():
         food_querystring = create_food_querystring(request.form)
         food_response = requests.request("GET", url, headers=headers, params=food_querystring)
         #
-        from flask import jsonify
-        return jsonify(food_response.json())
+        # from flask import jsonify
+        # return jsonify(food_response.json())
 
         activity_querystring = create_activity_querystring(request.form)
         print(activity_querystring)
         activity_response = requests.request("GET", url, headers=headers, params=activity_querystring)
         # print("response")
+        # from flask import jsonify
+        # return jsonify(activity_response.json())
+
+
         itinerary_activity_objects = filter_activity_results(activity_response) #filter yelp api results
         itinerary_food_objects = filter_food_results(food_response)
+
+        # from flask import jsonify
+        # return jsonify(itinerary_food_objects)
+        # return jsonify(itinerary_activity_objects)
         # return render_template("index.html")
 
         # print(itinerary_objects)
-        pprint("ACTIVITY")
-        pprint(itinerary_activity_objects)
 
 
-
-        return redirect(url_for('display_itinerary', itinerary_activity_objects=itinerary_activity_objects, itinerary_food_objects=itinerary_food_objects))
+        content = {"activity":itinerary_activity_objects,
+                   "food":itinerary_food_objects}
+        return redirect(url_for('display_itinerary', content=content))
         # return redirect(url_for('display_itinerary', itinerary_objects="asdasf"))
-
     else:
-        return render_template("survey.html")
+        return render_template("survey.html", content={})
 
-@app.route('/schedule/<string:itinerary_activity_objects>/<string:itinerary_food_objects>', methods=['GET', 'POST'])
-def display_itinerary(itinerary_activity_objects, itinerary_food_objects):
+@app.route('/schedule/<string>:content', methods=['GET', 'POST'])
+def display_itinerary(content):
+    print(content)
     errors = []
     # if request.method == "POST":
     #     # get url that the person has entered
@@ -205,7 +248,9 @@ def display_itinerary(itinerary_activity_objects, itinerary_food_objects):
     #         return render_template('schedule.html', errors=errors)
     #     if r:
     #         return render_template("schedule.html", itinerary_objects=itinerary_objects)
-    return render_template("initerary.html", itinerary_activity_objects=itinerary_activity_objects, itinerary_food_objects=itinerary_food_objects)
+    import ast
+    content=ast.literal_eval(content)
+    return render_template("initerary.html", **content)
 
 
 

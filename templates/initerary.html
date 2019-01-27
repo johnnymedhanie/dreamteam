@@ -25,6 +25,18 @@
     <div class="experience" style="position:relative;">
       <div></div>
       <div>
+          {% for meal, meal_info in content.items() %}
+          {{ meal }} {{ meal_info }}
+          {% endfor %}
+{#          {% for meal, meal_info in itinerary_food_objects.items() %}#}
+{#            {% if meal=="lunch" %}    #}
+{#                {% for key, val in meal_info %}#}
+{#                    {% if key=="description" %}#}
+{#                        <h3>{{ itinerary_food_objects[meal].description }}</h3>#}
+{#                    {% endif %}#}
+{#                {% endfor %}#}
+{#            {% endif %}#}
+{#          {% endfor %}#}
           <h3>Brunch at Ruby's Cafe </h3>
           <span style="float: right">
           9am–10am
