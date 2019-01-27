@@ -6,6 +6,7 @@ from pprint import pprint
 from flask import request
 from datetime import datetime
 from random import randint
+import ast
 
 
 app = Flask(__name__, static_url_path='', static_folder='templates', template_folder='templates')
@@ -228,8 +229,13 @@ def main():
 
         content = {"activity":itinerary_activity_objects,
                    "food":itinerary_food_objects}
-        import urllib
-        content = urllib.urlencode(content)
+        try:
+            import urllib.parse
+            content = urllib.parse.urlencode(content)
+        except ModuleNotFoundError or ImportError:
+            import urllib
+            content = urllib.urlencode(content)
+
         print('pls', content)
         return redirect(url_for('display_itinerary', content=content))
         # return redirect(url_for('display_itinerary', itinerary_objects="asdasf"))
@@ -255,11 +261,12 @@ def display_itinerary(content):
     #         return render_template("schedule.html", itinerary_objects=itinerary_objects)
     # import ast
     # content=ast.literal_eval(content)
-    # print('AHHHHHHH')
-    # print(content)
-    import urlparse
-    import ast
-    content = urlparse.parse_qs(content)
+    try:
+        import urllib.parse
+        content = urllib.parse.parse_qs(content)
+    except ModuleNotFoundError:
+        import urlparse
+        content = urlparse.parse_qs(content)
     # print('quick moves')
     content['food'][0] = ast.literal_eval(content['food'][0])
     content['activity'][0] = ast.literal_eval(content['activity'][0])
