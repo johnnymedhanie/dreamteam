@@ -16,8 +16,16 @@
                 <input id="location" class="text-line" type="text" name="location" value="">
             </div>
             <div>
-                <p>When do you want to go?</p>
+                <p>What date you want to go?</p>
                 <input class="text-line" type="date" name="time" value="">
+            </div>
+            <div>
+                <p>What time you want to head out?</p>
+                <input class="text-line" type="time" name="usr_time" value="">
+            </div>
+            <div>
+                <p>What time you want to go back?</p>
+                <input class="text-line" type="time" name="usr_time" value="">
             </div>
             <div id="new">
                 <p>Are you new to the area?</p>
@@ -27,12 +35,12 @@
             <div>
                 <p>What does your budget look like for food?</p>
                 <input class="budget" type="range" list="moolahTicks" min="0" max="3" value="0">
-                <datalist id="moolahTicks" style="display:block">
+                <!-- <datalist id="moolahTicks" style="display:block">
                   <option value="0" label="$">
                   <option value="1" label="$$">
                   <option value="2" label="$$$">
                   <option value="3" label="$$$$">
-                </datalist>
+                </datalist> -->
 
                 <!-- <ul class="range-labels">
                   <li class="active selected">$</li>
@@ -40,6 +48,10 @@
                   <li>$$$</li>
                   <li>$$$$</li>
                 </ul> -->
+            </div>
+            <div>
+                <p>What kind of cuisine would you like?</p>
+                <input id="location" class="text-line" type="text" name="location" value="">
             </div>
             <div>
                 <p>What does your budget look like for other activities?</p>
@@ -59,25 +71,51 @@
                 </ul> -->
 
             </div>
-            <div>
+            <div id="interests">
                 <p>What are you interested in?</p>
-                <input type="checkbox" name="activity" value="Nightlife"> Nightlife w icon
+                <button>
+                    <img src="./beer.svg">
+                    <div>Nightlife</div>
+                </button>
+                <button>
+                    <img src="./herbs.svg">
+                    <div>Relax and Pamper</div>
+                </button>
+                <button>
+                    <img src="./cooking.svg">
+                    <div>Food Experiences</div>
+                </button>
+                <button>
+                    <img src="./music.svg">
+                    <div>Music</div>
+                </button>
+                <button>
+                    <img src="./family.svg">
+                    <div>Family-Friendly</div>
+                </button>
+                <button>
+                    <img src="./culture.svg">
+                    <div>Arts and Culture</div>
+                </button>
+                <button>
+                    <img src="./outdoors.svg">
+                    <div>Outdoors</div>
+                </button>
+                <!-- <input type="checkbox" name="activity" value="Nightlife"> Nightlife w icon
                 <input type="checkbox" name="activity" value="Relax and Pamper"> Relax and Pamper w icon
                 <input type="checkbox" name="activity" value="Food Experiences"> Food Experiences w icon
                 <input type="checkbox" name="activity" value="Music"> Music w icon
                 <input type="checkbox" name="activity" value="Family-Friendly"> Family-Friendly w icon
                 <input type="checkbox" name="activity" value="Arts and Culture"> Arts and Culture w icon
-                <input type="checkbox" name="activity" value="Outdoors"> Outdoors w icon
+                <input type="checkbox" name="activity" value="Outdoors"> Outdoors w icon -->
 
             </div>
-
-            <div>
-                <p>When do you want to head out?</p>
-                <input class="text-line" type="time" name="usr_time" value="">
-            </div>
-            <div>
-                <p>When do you want to go back?</p>
-                <input class="text-line" type="time" name="usr_time" value="">
+            <div id="howtotravel">
+                <p>How do you like to travel?</p>
+                <!-- <input class="text-line" type="time" name="usr_time" value=""> -->
+                <button>I like to pack as many things as possible into my trip.</button><br>
+                <button>I like to take it easy. I like to take my time going from place to place.</button><br>
+                <button>I like something in between.</button><br>
             </div>
             <div>
                 <p>How would you like to get around?</p>

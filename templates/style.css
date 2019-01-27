@@ -66,6 +66,26 @@ button {
     font-size: 15px;
 }
 
+#interests button {
+    width: 150px;
+    height: 150px;
+    margin-right: 40px;
+    margin-bottom: 40px;
+    font-size: 13px;
+}
+
+#interests button img {
+    width: 60px;
+    margin-top: 27px;
+    margin-bottom: 14px;
+}
+
 .budget {
     width: 380px;
+}
+
+#howtotravel button {
+    width: 600px;
+    font-size: 15px;
+    margin-bottom: 15px;
 }
