@@ -1,0 +1,93 @@
+@font-face {
+  font-family: 'Ivar Text';
+  font-style: normal;
+  font-weight: 400;
+  src: url(./IvarTextBold.otf);
+}
+
+@font-face{
+    font-family: 'circular';
+    font-style: normal;
+    font-weight: normal;
+    src: url(./circular-book.ttf);
+}
+
+
+body {
+    padding: 40px 10vw;
+    background-color: #F1F4F2;
+    font-family: 'circular';
+}
+
+h1 {
+    font-family: 'Ivar Text';
+    font-size: 48px;
+    margin-bottom: 15px;
+}
+
+h2 {
+  font-family: 'IvarTextBold';
+  font-size: 28px;
+}
+
+
+h5 {
+    font-size: 16px;
+    margin-top: 1px;
+    font-weight: normal;
+}
+
+p {
+    font-size: 20px;
+}
+
+.text-line {
+    background-color: transparent;
+    color: black;
+    outline: none;
+    outline-style: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: solid #686868 2px;
+    padding: 3px 10px;
+    font-size: 20px;
+    width: 18em;
+}
+
+button {
+    background-color: #F1F4F2;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    min-width: 75px;
+    min-height: 40px;
+}
+
+#new button {
+    margin-right: 40px;
+    font-size: 15px;
+}
+
+#interests button {
+    width: 150px;
+    height: 150px;
+    margin-right: 40px;
+    margin-bottom: 40px;
+    font-size: 13px;
+}
+
+#interests button img {
+    width: 60px;
+    margin-top: 27px;
+    margin-bottom: 14px;
+}
+
+.budget {
+    width: 380px;
+}
+
+#howtotravel button {
+    width: 600px;
+    font-size: 15px;
+    margin-bottom: 15px;
+}
