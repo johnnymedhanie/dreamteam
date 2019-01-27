@@ -30,8 +30,21 @@ def foodParser(*foods):
 
 
 
-def filter_results(response):
+def filter_activity_results(response):
     """ given a response object's json, filter out and select a few for itinerary
+    @param response: Response object containing json data from get request to yelp api
+    return: a list of dictionary where the list is a list of scheduled activities, and the dictionary contains information for each activity
+    """
+
+    # print(response.text)
+    response_json = response.text
+    response = json.loads(response_json)
+    print(response)
+    return response['businesses'][0]["alias"]
+
+
+def filter_food_results(response):
+    """ given a response object's json, filter out and select a few for food
     @param response: Response object containing json data from get request to yelp api
     return: a list of dictionary where the list is a list of scheduled activities, and the dictionary contains information for each activity
     """
@@ -132,24 +145,22 @@ def main():
         # choices = [{"term": "asian"}, {'limit':2},{"location": "vancouver", "price": "1, 2, 3"}]
         # print("choices")
         # print(choices)
-        querystring = create_querystring(request.form)
-
-
-        # querystring = create_querystring(request.args) data", request.data) #"this #query yelp api
+        querystring = create_food_querystring(request.form)
         response = requests.request("GET", url, headers=headers, params=querystring)
         # print("response")
-        itinerary_objects = filter_results(response) #filter yelp api results
+        itinerary_activity_objects = filter_activity_results(response) #filter yelp api results
+        itinerary_food_objects = filter_food_results(response)
         # return render_template("index.html")
 
         # print(itinerary_objects)
-        return redirect(url_for('display_itinerary', itinerary_objects=itinerary_objects))
+        return redirect(url_for('display_itinerary', itinerary_activity_objects=itinerary_activity_objects, itinerary_food_objects=itinerary_food_objects))
         # return redirect(url_for('display_itinerary', itinerary_objects="asdasf"))
 
     else:
         return render_template("survey.html")
 
-@app.route('/schedule/<string:itinerary_objects>', methods=['GET', 'POST'])
-def display_itinerary(itinerary_objects):
+@app.route('/schedule/<string:itinerary_activity_objects>/<string:itinerary_food_objects>', methods=['GET', 'POST'])
+def display_itinerary(itinerary_activity_objects, itinerary_food_objects):
     errors = []
     # if request.method == "POST":
     #     # get url that the person has entered
@@ -163,7 +174,7 @@ def display_itinerary(itinerary_objects):
     #         return render_template('schedule.html', errors=errors)
     #     if r:
     #         return render_template("schedule.html", itinerary_objects=itinerary_objects)
-    return render_template("schedule.html", itinerary_objects=itinerary_objects)
+    return render_template("schedule.html", itinerary_activity_objects=itinerary_activity_objects, itinerary_food_objects=itinerary_food_objects)
 
 
 
