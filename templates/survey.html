@@ -17,7 +17,7 @@
             </div>
             <div>
                 <p>When do you want to go?</p>
-                <input class="text-line" type="date" name="time" value="">
+                <input id="departureDay" class="text-line" type="date" name="time" value="">
             </div>
             <div id="new">
                 <p>Are you new to the area?</p>
@@ -43,7 +43,7 @@
             </div>
             <div>
                 <p>What does your budget look like for other activities?</p>
-                <input class="budget" type="range" list="budget" min="0" max="3" value="0">
+                <input id="activityBudget" class="budget" type="range" list="budget" min="0" max="3" value="0">
                 <!-- <datalist class="budget">
                   <option label="$"> Under $10 </option>
                   <option label="$$"> $11-$30 </option>
@@ -61,23 +61,23 @@
             </div>
             <div>
                 <p>What are you interested in?</p>
-                <input type="checkbox" name="activity" value="Nightlife"> Nightlife w icon
-                <input type="checkbox" name="activity" value="Relax and Pamper"> Relax and Pamper w icon
-                <input type="checkbox" name="activity" value="Food Experiences"> Food Experiences w icon
-                <input type="checkbox" name="activity" value="Music"> Music w icon
-                <input type="checkbox" name="activity" value="Family-Friendly"> Family-Friendly w icon
-                <input type="checkbox" name="activity" value="Arts and Culture"> Arts and Culture w icon
-                <input type="checkbox" name="activity" value="Outdoors"> Outdoors w icon
+                <input type="checkbox" name="Nightlife" /> Nightlife w icon
+                <input type="checkbox" name="Relax" /> Relax and Pamper w icon
+                <input type="checkbox" name="FoodExp" /> Food Experiences w icon
+                <input type="checkbox" name="Music" /> Music w icon
+                <input type="checkbox" name="FamFriendly" /> Family-Friendly w icon
+                <input type="checkbox" name="ArtsCulture" /> Arts and Culture w icon
+                <input type="checkbox" name="Outdoors" /> Outdoors w icon
 
             </div>
 
             <div>
                 <p>When do you want to head out?</p>
-                <input class="text-line" type="time" name="usr_time" value="">
+                <input id="departureTime" class="text-line" type="time" name="usr_time" value="" />
             </div>
             <div>
                 <p>When do you want to go back?</p>
-                <input class="text-line" type="time" name="usr_time" value="">
+                <input id="homeTime" class="text-line" type="time" name="usr_time" value="" />
             </div>
             <div>
                 <p>How would you like to get around?</p>
