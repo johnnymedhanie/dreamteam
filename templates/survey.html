@@ -10,10 +10,10 @@
         <h1>Let's Plan Your Trip</h1>
         <h5>First, we'll need to ask you a few questions</h5> <br> <br> <br>
 
-        <form id="preferences" name="preferences">
+        <form id="preferences" name="preferences" role="form" method='POST' action='/'>
             <div>
                 <p>Where are you going?</p>
-                <input class="text-line" type="text" name="location" value="Vancouver">
+                <input id="location" class="text-line" type="text" name="location" value="Vancouver">
             </div>
             <div>
                 <p>When do you want to go?</p>
@@ -61,7 +61,10 @@
             </div>
 
             <p>Ready for your next adventure?</p>
-            <button type="button" onclick"">I'm ready</button>
+            <button type="submit" class="button">I'm ready</button>
         </form>
+    {% for error in errors %}
+        <h4>{{ error }}</h4>
+      {% endfor %}
     </body>
 </html>
