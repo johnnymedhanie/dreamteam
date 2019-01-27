@@ -29,7 +29,8 @@ def filter_activity_results(response):
     response = json.loads(response_json)
     print(response)
 
-    return response['businesses'][0]["alias"]
+    return response
+    # return response['businesses'][0]["alias"]
 
 
 def filter_food_results(response):
@@ -42,7 +43,8 @@ def filter_food_results(response):
     response_json = response.text
     response = json.loads(response_json)
     print(response)
-    return response['businesses'][0]["alias"]
+    return response
+    # return response['businesses'][0]["alias"]
 
 
 def parse_survey_form(survey_form):
@@ -158,11 +160,15 @@ def main():
         # print(choices)
 
         # use for debugging form fields
+
         # from flask import jsonify
         # return jsonify(request.form)
 
         food_querystring = create_food_querystring(request.form)
         food_response = requests.request("GET", url, headers=headers, params=food_querystring)
+        #
+        # from flask import jsonify
+        # return jsonify(food_response.json())
 
         activity_querystring = create_activity_querystring(request.form)
         print(activity_querystring)
