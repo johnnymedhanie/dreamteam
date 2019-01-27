@@ -66,7 +66,7 @@ button {
     font-size: 15px;
 }
 
-#interests button {
+#interests button, #getaround button {
     width: 150px;
     height: 150px;
     margin-right: 40px;
@@ -74,7 +74,7 @@ button {
     font-size: 13px;
 }
 
-#interests button img {
+#interests button img, #getaround button img {
     width: 60px;
     margin-top: 27px;
     margin-bottom: 14px;
@@ -88,4 +88,13 @@ button {
     width: 600px;
     font-size: 15px;
     margin-bottom: 15px;
+}
+
+#ready {
+    background-color: #1E3944;
+    border-color: #1E3944;
+    color: white;
+    font-size: 15px;
+    min-width: 85px;
+    min-height: 45px;
 }

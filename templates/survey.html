@@ -117,17 +117,34 @@
                 <button>I like to take it easy. I like to take my time going from place to place.</button><br>
                 <button>I like something in between.</button><br>
             </div>
-            <div>
+            <div id="getaround">
                 <p>How would you like to get around?</p>
-                <input type="radio" name="transportation" value="car" checked> by car<br>
+                <button>
+                    <img src="./car.svg">
+                    <div>Car</div>
+                </button>
+                <button>
+                    <img src="./bus.svg">
+                    <div>Public Transportation</div>
+                </button>
+                <button>
+                    <img src="./bike.svg">
+                    <div>Bike</div>
+                </button>
+                <button>
+                    <img src="./foot.svg">
+                    <div>On Foot</div>
+                </button>
+                <!-- <input type="radio" name="transportation" value="car" checked> by car<br>
                 <input type="radio" name="transportation" value="bus"
                 checked> on public transport <br>
                 <input type="radio" name="transportation" value="bike" checked> on wheels Male<br>
-                <input type="radio" name="transportation" value="boot" checked> on foot <br>
+                <input type="radio" name="transportation" value="boot" checked> on foot <br> -->
+
             </div>
 
             <p>Ready for your next adventure?</p>
-            <button type="submit" class="button">I'm ready</button>
+            <button id="ready">I'm ready!</button>
         </form>
     {% for error in errors %}
         <h4>{{ error }}</h4>
