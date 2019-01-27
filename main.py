@@ -30,10 +30,11 @@ def filter_activity_results(response):
     response = json.loads(response_json)
     rng_activity = randint(0, len(response)-1)
     selected_activity = response["businesses"][rng_activity]  # TODO: improve selection
+    print('AHHHHHHHHAHHHHHHHHAHHHHHHHHAHHHHHHHHAHHHHHHHHAHHHHHHHHAHHHHHHHHAHHHHHHHHAHHHHHHHHAHHHHHHHHAHHHHHHHHAHHHHHHHHAHHHHHHHHAHHHHHHHHAHHHHHHHHAHHHHHHHHAHHHHHHHHAHHHHHHHHAHHHHHHHHAHHHHHHHH')
 
     activities = {
         selected_activity["name"]:{
-                # "image_url": selected_activity["image_url"],
+                "image_url": selected_activity["image_url"],
                 "address": ','.join([item for item in selected_activity["location"]["display_address"]]),
                 "time_duration": "2:00pm-4:30pm",  # TODO: change this so it is not hardcoded when have more time
                 "description": "{}".format(selected_activity["name"])
@@ -71,7 +72,7 @@ def filter_food_results(response):
             "description": "Lunch at {}".format(selected_lunch_restaurant["name"])
         },
         "dinner":{
-            # "image_url": selected_dinner_restaurant["image_url"],
+            "image_url": selected_dinner_restaurant["image_url"],
             "address": ','.join([item for item in selected_dinner_restaurant["location"]["display_address"]]),
             "time_duration": "5:00pm-6:30pm",  # TODO: change this so it is not hardcoded when have more time
             "description": "Dinner at {}".format(selected_dinner_restaurant["name"])
@@ -237,8 +238,8 @@ def main():
 
 @app.route('/schedule/<content>', methods=['GET', 'POST'])
 def display_itinerary(content):
-    print('YEEEEEE')
-    print(content)
+    # print('YEEEEEE')
+    # print(content)
     errors = []
     # if request.method == "POST":
     #     # get url that the person has entered
@@ -254,12 +255,14 @@ def display_itinerary(content):
     #         return render_template("schedule.html", itinerary_objects=itinerary_objects)
     # import ast
     # content=ast.literal_eval(content)
-    print('AHHHHHHH')
-    print(content)
+    # print('AHHHHHHH')
+    # print(content)
     import urlparse
+    import ast
     content = urlparse.parse_qs(content)
-    print('quick moves')
-    print(content)
+    # print('quick moves')
+    content['food'][0] = ast.literal_eval(content['food'][0])
+    content['activity'][0] = ast.literal_eval(content['activity'][0])
     return render_template("initerary.html", content=content)
 
 
