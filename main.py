@@ -232,7 +232,7 @@ def main():
     else:
         return render_template("survey.html", content={})
 
-@app.route('/schedule/<string>:content', methods=['GET', 'POST'])
+@app.route('/schedule/<content>', methods=['GET', 'POST'])
 def display_itinerary(content):
     print(content)
     errors = []
@@ -250,7 +250,9 @@ def display_itinerary(content):
     #         return render_template("schedule.html", itinerary_objects=itinerary_objects)
     import ast
     content=ast.literal_eval(content)
-    return render_template("initerary.html", **content)
+    print('AHHHHHHH')
+    print(content)
+    return render_template("initerary.html", content=content)
 
 
 
