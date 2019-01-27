@@ -7,7 +7,7 @@ from pprint import pprint
 from flask import request
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='templates', template_folder='templates')
 #
 url = "https://api.yelp.com/v3/businesses/search"
 
@@ -30,7 +30,7 @@ def foodParser(*foods):
 
 
 
-def filter_results(response):
+def filter_activity_results(response):
     """ given a response object's json, filter out and select a few for itinerary
     @param response: Response object containing json data from get request to yelp api
     return: a list of dictionary where the list is a list of scheduled activities, and the dictionary contains information for each activity
@@ -39,47 +39,128 @@ def filter_results(response):
     # print(response.text)
     response_json = response.text
     response = json.loads(response_json)
-    return response['businesses'][0]["id"]
+    print(response)
+    return response['businesses'][0]["alias"]
 
-def create_querystring(survey_answers):
+
+def filter_food_results(response):
+    """ given a response object's json, filter out and select a few for food
+    @param response: Response object containing json data from get request to yelp api
+    return: a list of dictionary where the list is a list of scheduled activities, and the dictionary contains information for each activity
     """
 
-    :param survey_answers: a list of all survey answers as keywords to querystring
+    # print(response.text)
+    response_json = response.text
+    response = json.loads(response_json)
+    print(response)
+    return response['businesses'][0]["alias"]
+
+
+def parse_survey_form(survey_form):
+    """
+
+    :param survery_answers:
     :return:
     """
+    print(survey_form)
+
+
+def get_activity_open_interval(departure_time, return_time, time_spent_per):
+    """
+    given a departure time, return time, and a guess at how long the user would like to spend at each location,
+    figure out a range of times to check what places are open at.
+
+    Eg. departure at 10am, return at 2pm, user likes to pack as many things as possible - usually 1-2 hours at each place
+    Therefore, when querying for activities, activities should be queried whether they are open at 10,11,12pm,1pm,2pm
+
+    :param departure_time:
+    :param return_time:
+    :param time_spent_per:
+    :return: a list of integers representing unix time in same timezone as query that should be queried
+    """
+
+    return []
+
+
+def get_food_open_interval(departure_time, return_time, time_spent_per):
+    """
+    given a departure time, return time, and a guess at how long the user would like to spend at each location,
+    figure out a range of times to check what places are open at.
+    assumes:
+    breakfast is 6-10am
+    lunch is 12-2pm
+    dinner is 5-8pm
+
+    Eg. departure at 10am, return at 2pm, user likes to pack as many things as possible - usually 1-2 hours at each place
+    Therefore, when querying for activities, activities should be queried whether they are open at 10,11,12pm,1pm,2pm
+
+    :param departure_time:
+    :param return_time:
+    :param time_spent_per:
+    :return: a list of integers representing unix time in same timezone as query that should be queried
+    """
+
+    return []
+
+
+def create_activity_querystring(survey_form):
+    querystring={}
+    querystring["price"]=survey_form["activity-budget"]
+
+    return querystring
+
+
+def create_food_querystring(survey_form):
+    """
+
+    :param survey_form: a form containing all survey answers and outputs dictionary  of
+    keywords:values to use as querystring for yelp api
+    :return:
+    """
+
     querystring = {}
-    for ans in survey_answers:
-        querystring.update(ans)
-    print(querystring)
+    querystring["location"] = survey_form["location"]
+    querystring["cuisine"] = survey_form["cuisine"]
+    open_interval = get_food_open_interval(survey_form["departureTime"], survey_form["homeTime"], survey_form["howtotravel"])
+    # querystring["term"] = "korean"
+    querystring["price"]=survey_form["food-budget"]
+    print(survey_form.keys())
+
+    # vancouver 1. Japadog
+    # vancouver 2. Medina Cafe
+    # vancouver 3. Miku
+    # vancouver 4. bluewater cafe
+    # for ans in survey_form:
+    #     querystring.update(ans)
+    # print(querystring)
     return querystring
 
 
 @app.route('/', methods=['GET', 'POST'])
 def main():
     if request.method == 'POST':
-        # replace this with an insert into whatever database you're using
-        print("this is req data", request.data)
-        choices = request.get_json()  # yelp keywords that we can use in query string
-        choices = [{"term": "asian"}, {'limit':2},{"location": "vancouver", "price": "1, 2, 3"}]
 
-        querystring = create_querystring(choices)
-
-
-        # querystring = create_querystring(request.args) #query yelp api
+        print("this is req is form data", request.form['location'])
+        # choices = request.json # yelp keywords that we can use in query string
+        # choices = [{"term": "asian"}, {'limit':2},{"location": "vancouver", "price": "1, 2, 3"}]
+        # print("choices")
+        # print(choices)
+        querystring = create_food_querystring(request.form)
         response = requests.request("GET", url, headers=headers, params=querystring)
-        print("response")
-        itinerary_objects = filter_results(response) #filter yelp api results
+        # print("response")
+        itinerary_activity_objects = filter_activity_results(response) #filter yelp api results
+        itinerary_food_objects = filter_food_results(response)
         # return render_template("index.html")
-        print("IASDKAJSFLKASJFLKFJLASKFJ")
-        print(itinerary_objects)
-        return redirect(url_for('display_itinerary', itinerary_objects=itinerary_objects))
+
+        # print(itinerary_objects)
+        return redirect(url_for('display_itinerary', itinerary_activity_objects=itinerary_activity_objects, itinerary_food_objects=itinerary_food_objects))
         # return redirect(url_for('display_itinerary', itinerary_objects="asdasf"))
 
     else:
         return render_template("survey.html")
 
-@app.route('/schedule/<string:itinerary_objects>', methods=['GET', 'POST'])
-def display_itinerary(itinerary_objects):
+@app.route('/schedule/<string:itinerary_activity_objects>/<string:itinerary_food_objects>', methods=['GET', 'POST'])
+def display_itinerary(itinerary_activity_objects, itinerary_food_objects):
     errors = []
     # if request.method == "POST":
     #     # get url that the person has entered
@@ -93,7 +174,7 @@ def display_itinerary(itinerary_objects):
     #         return render_template('schedule.html', errors=errors)
     #     if r:
     #         return render_template("schedule.html", itinerary_objects=itinerary_objects)
-    return render_template("schedule.html", itinerary_objects=itinerary_objects)
+    return render_template("schedule.html", itinerary_activity_objects=itinerary_activity_objects, itinerary_food_objects=itinerary_food_objects)
 
 
 

@@ -104,3 +104,9 @@ button {
     min-width: 85px;
     min-height: 45px;
 }
+
+.selected {
+    background-color: #AED2BE;
+    border-color: #2e862e;
+    box-shadow: none;
+}
