@@ -63,6 +63,12 @@ button {
     min-height: 40px;
 }
 
+.experience{
+  height: 400px;
+  background-image: url("https://images.unsplash.com/photo-1521017432531-fbd92d768814?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80");
+  background-size: cover;
+}
+
 #new button {
     margin-right: 40px;
     font-size: 15px;
