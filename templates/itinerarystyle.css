@@ -80,6 +80,20 @@ button {
     min-height: 40px;
 }
 
+#new button {
+    margin-right: 40px;
+    font-size: 15px;
+}
+
+#ready {
+    background-color: #1E3944;
+    border-color: #1E3944;
+    color: white;
+    font-size: 15px;
+    min-width: 85px;
+    min-height: 45px;
+}
+
 .experience{
   height: 170px;
   background-image: url("https://images.unsplash.com/photo-1521017432531-fbd92d768814?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80");
@@ -88,6 +102,7 @@ button {
   color: white;
   border-radius: 40px;
   margin-bottom: 30px;
+  margin-top: 80px;
 }
 
 .experience>div:first-child {
