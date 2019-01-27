@@ -17,15 +17,15 @@
             </div>
             <div>
                 <p>What date you want to go?</p>
-                <input id="departureDay" class="text-line" type="date" name="time" value="">
+                <input id="departureDay" class="text-line" type="date" name="departureDay" value="">
             </div>
             <div>
                 <p>What time you want to head out?</p>
-                <input id="departureTime" class="text-line" type="time" name="usr_time" value="">
+                <input id="departureTime" class="text-line" type="time" name="departureTime" value="">
             </div>
             <div>
                 <p>What time you want to go back?</p>
-                <input id="homeTime" class="text-line" type="time" name="usr_time" value="">
+                <input id="homeTime" class="text-line" type="time" name="homeTime" value="">
             </div>
             <div id="new">
                 <p>Are you new to the area?</p>
@@ -34,7 +34,7 @@
             </div>
             <div>
                 <p>What does your budget look like for food?</p>
-                <input class="budget" type="range" list="moolahTicks" min="0" max="3" value="0">
+                <input class="budget" type="range" name="moolahTicks" min="1" max="4">
                 <!-- <datalist id="moolahTicks" style="display:block">
                   <option value="0" label="$">
                   <option value="1" label="$$">
@@ -51,11 +51,11 @@
             </div>
             <div>
                 <p>What kind of cuisine would you like?</p>
-                <input id="location" class="text-line" type="text" name="location" value="">
+                <input name="cuisine" class="text-line" type="text" value="">
             </div>
             <div>
                 <p>What does your budget look like for other activities?</p>
-                <input id="activityBudget" class="budget" type="range" list="budget" min="0" max="3" value="0">
+                <input name="activityBudget" class="budget" type="range" list="budget" min="1" max="4">
                 <!-- <datalist class="budget">
                   <option label="$"> Under $10 </option>
                   <option label="$$"> $11-$30 </option>
@@ -73,31 +73,31 @@
             </div>
             <div id="interests">
                 <p>What are you interested in?</p>
-                <button>
+                <button id="intoBeer" name="intoBeer" type="button" value="False" onclick="change('intoBeer')">
                     <img src="./beer.svg">
                     <div>Nightlife</div>
                 </button>
-                <button>
+                <button id="intoRNR" name="intoRNR" type="button" value="False" onclick="change('intoRNR')">
                     <img src="./herbs.svg">
                     <div>Relax and Pamper</div>
                 </button>
-                <button>
+                <button id="intoCooking" name="intoCooking" type="button" value="False" onclick="change('intoCooking')">
                     <img src="./cooking.svg">
                     <div>Food Experiences</div>
                 </button>
-                <button>
+                <button id="intoMusic" name="intoMusic" type="button" value="False" onclick="change('intoMusic')">
                     <img src="./music.svg">
                     <div>Music</div>
                 </button>
-                <button>
+                <button id="intoFamFriendly" name="intoFamFriendly" type="button" value="False" onclick="change('intoFamFriendly')">
                     <img src="./family.svg">
                     <div>Family-Friendly</div>
                 </button>
-                <button>
+                <button id="intoCulture" name="intoCulture" type="button" value="False" onclick="change('intoCulture')">
                     <img src="./culture.svg">
                     <div>Arts and Culture</div>
                 </button>
-                <button>
+                <button id="intoOutdoors" name="intoOutdoors" type="button" value="False" onclick="change('intoOutdoors')">
                     <img src="./outdoors.svg">
                     <div>Outdoors</div>
                 </button>
@@ -110,28 +110,28 @@
                 <input type="checkbox" name="activity" value="Outdoors"> Outdoors w icon -->
 
             </div>
-            <div id="howtotravel">
+            <div id="howtotravel" name="howtotravel">
                 <p>How do you like to travel?</p>
-                <!-- <input class="text-line" type="time" name="usr_time" value=""> -->
+                <!-- <input class="text-line" type="time" name="usr_time" valubuttone=""> -->
                 <button>I like to pack as many things as possible into my trip.</button><br>
                 <button>I like to take it easy. I like to take my time going from place to place.</button><br>
                 <button>I like something in between.</button><br>
             </div>
-            <div id="getaround">
+            <div id="getaround" name="getaround">
                 <p>How would you like to get around?</p>
-                <button>
+                <button id="by_car" type="button" value="False" onclick="change('by_car')">
                     <img src="./car.svg">
                     <div>Car</div>
                 </button>
-                <button>
+                <button id="by_bus" type="button" value="False" onclick="change('by_bus')">
                     <img src="./bus.svg">
                     <div>Public Transportation</div>
                 </button>
-                <button>
+                <button id="by_bike" type="button" value="False" onclick="change('by_bike')">
                     <img src="./bike.svg">
                     <div>Bike</div>
                 </button>
-                <button>
+                <button id="by_foot" type="button" value="False" onclick="change('by_foot')">
                     <img src="./foot.svg">
                     <div>On Foot</div>
                 </button>
@@ -144,10 +144,26 @@
             </div>
 
             <p>Ready for your next adventure?</p>
-            <button id="ready">I'm ready!</button>
+            <button id="ready" type="submit">I'm ready!</button>
         </form>
     {% for error in errors %}
         <h4>{{ error }}</h4>
       {% endfor %}
     </body>
+
+
 </html>
+<script type="application/javascript">
+
+function change(element_id) {
+  var change = document.getElementById(element_id);
+  if (change.value == "False") {
+    document.preferences.elements[element_id].value = "True";
+    //document.test.submit();
+  } else {
+    change.value = "False";
+  }
+  console.log(change);
+}
+
+</script>
