@@ -27,27 +27,14 @@
                 <p>What time you want to go back?</p>
                 <input id="homeTime" class="text-line" type="time" name="homeTime" value="">
             </div>
-            <div id="new">
+            <div id="new" onclick="newToTheAreaToggle">
                 <p>Are you new to the area?</p>
-                <button>Yes</button>
-                <button>No</button>
+                <button id="newToTheAreaYes" type="button" onclick="newToTheAreaToggle(this)">Yes</button>
+                <button id="newToTheAreaNo" type="button" onclick="newToTheAreaToggle(this)">No</button>
             </div>
             <div>
                 <p>What does your budget look like for food?</p>
                 <input class="budget" type="range" name="food-budget" min="1" max="4">
-                <!-- <datalist id="moolahTicks" style="display:block">
-                  <option value="0" label="$">
-                  <option value="1" label="$$">
-                  <option value="2" label="$$$">
-                  <option value="3" label="$$$$">
-                </datalist> -->
-
-                <!-- <ul class="range-labels">
-                  <li class="active selected">$</li>
-                  <li>$$</li>
-                  <li>$$$</li>
-                  <li>$$$$</li>
-                </ul> -->
             </div>
             <div>
                 <p>What kind of cuisine would you like?</p>
@@ -56,20 +43,6 @@
             <div>
                 <p>What does your budget look like for other activities?</p>
                 <input name="activityBudget" class="budget" type="range" name="activity-budget" min="1" max="4">
-                <!-- <datalist class="budget">
-                  <option label="$"> Under $10 </option>
-                  <option label="$$"> $11-$30 </option>
-                  <option label="$$$"> $31-$60 </option>
-                  <option label="$$$$"> above $61 </option>
-                </datalist> -->
-
-                <!-- <ul class="range-labels">
-                  <li class="active selected">$</li>
-                  <li>$$</li>
-                  <li>$$$</li>
-                  <li>$$$$</li>
-                </ul> -->
-
             </div>
             <div id="interests">
                 <p>What are you interested in?</p>
@@ -135,12 +108,6 @@
                     <img src="./foot.svg">
                     <div>On Foot</div>
                 </button>
-                <!-- <input type="radio" name="transportation" value="car" checked> by car<br>
-                <input type="radio" name="transportation" value="bus"
-                checked> on public transport <br>
-                <input type="radio" name="transportation" value="bike" checked> on wheels Male<br>
-                <input type="radio" name="transportation" value="boot" checked> on foot <br> -->
-
             </div>
 
             <p>Ready for your next adventure?</p>
@@ -157,6 +124,7 @@
 
 function change(element_id) {
   var change = document.getElementById(element_id);
+  change.classList.toggle("selected");
   if (change.value == "False") {
     document.preferences.elements[element_id].value = "True";
     //document.test.submit();
@@ -164,6 +132,17 @@ function change(element_id) {
     change.value = "False";
   }
   console.log(change);
+}
+
+function newToTheAreaToggle(e) {
+    Array.from(document.getElementById('new').children).slice(1).forEach(
+        button => {
+            button.classList.remove('selected');
+            button.value = "";
+        }
+    );
+    e.classList.add('selected');
+    e.value = "True";
 }
 
 </script>
