@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Survey</title>
+        <link rel='stylesheet' href='style.css'>
+    </head>
+    <body>
+        <h1>Let's plan your trip</h1>
+        <h5>First, we'll need to ask you a few questions</h5>
+
+        <form id="preferences" name="preferences">
+            <div>
+                <p>Where are you going?</p>
+                <input type="text" name="location" value="Vancouver">
+            </div>
+            <div>
+                <p>When do you want to go?</p>
+                <input type="date" name="time" value="">
+            </div>
+            <div>
+                <p>Are you new to the area?</p>
+                <input type="radio" name="yn" value="yes"> yes <br>
+                <input type="radio" name="yn" value="no"> no <br>
+            </div>
+            <div>
+                <p>What does your budget look like for food?</p>
+                <input type="range" min="1" max="100" value="50">
+            </div>
+            <div>
+                <p>What does your budget look like for other activities?</p>
+                <input type="range" min="1" max="100" value="50">
+            </div>
+            <div>
+                <p>What are you interested in?</p>
+                <input type="text" name="time" value="">
+            </div>
+            <div>
+                <p>How do you like to travel?</p>
+                <input type="text" name="time" value="">
+            </div>
+            <div>
+                <p>When do you want to head out?</p>
+                <input type="time" name="usr_time" value="">
+            </div>
+            <div>
+                <p>When do you want to go back?</p>
+                <input type="time" name="usr_time" value="">
+            </div>
+            <div>
+                <p>How would you like to get around?</p>
+                <input type="text" name="time" value="">
+            </div>
+
+            <p>Ready for your next adventure?</p>
+            <button type="button" onclick"">I'm ready</button>
+        </form>
+    </body>
+</html>
