@@ -76,7 +76,7 @@ def main():
         # return redirect(url_for('display_itinerary', itinerary_objects="asdasf"))
 
     else:
-        return render_template("index.html")
+        return render_template("survey.html")
 
 @app.route('/schedule/<string:itinerary_objects>', methods=['GET', 'POST'])
 def display_itinerary(itinerary_objects):
