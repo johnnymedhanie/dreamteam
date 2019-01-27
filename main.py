@@ -15,6 +15,7 @@ app = Flask(__name__)
 #     {"time" : {"10:AM", "7:PM"}} # what do you like to do
 # }
 
+#
 def foodParser(*foods):
     return {}
 
@@ -29,11 +30,20 @@ def create_querystring(*survey_answers):
 @app.route('/')
 def main():
     print("this is req data", request.data)
+    choices = request.get_json()
+
+    cuisine = choices['cuisine']
+    price = choices['price']
+
+
     print(request.get_json())
+    print("cuisine is: ", cuisine)
+
+
     url = "https://api.yelp.com/v3/businesses/search"
     location = ""
 
-    querystring = {"term":"asian","location":"vancouver"}
+    querystring = {"term":cuisine, "location":"vancouver"}
     payload = ""
     headers = {
     'Authorization': "Bearer TcTzRvNstk-8bdJkDiY3mwUhcCraFKD1SERukD6IxsOIiyN_pbbdmzb1JQdcCig0YYqECwWYEMB5YAD-8Z_XXso0MHOz47jJGqrH3S_t0L1V_frSvWq0jzsP1_5MXHYx",
