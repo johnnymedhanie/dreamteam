@@ -1,2 +1,4 @@
 **ENV/
 **venv/
+.idea/
+__pycache__/
